@@ -10,4 +10,17 @@ export const auth = betterAuth({
     provider: "pg",
     schema,
   }),
+  user: {
+    modelName: "userTable",
+  },
+
+  session: {
+    modelName: "sessionTable",
+  },
+  account: {
+    modelName: "accountTable",
+  },
+  verification: {
+    modelName: "verificationTable",
+  },
 });
