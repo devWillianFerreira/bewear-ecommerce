@@ -1,4 +1,4 @@
-import Header from "@/components/commom/Header";
+import Header from "@/components/commom/header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import SigninForm from "./components/sign-in-Form";
