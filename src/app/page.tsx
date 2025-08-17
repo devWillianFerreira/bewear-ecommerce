@@ -24,7 +24,7 @@ export default async function Home() {
     },
   });
 
-  const category = await db.query.categoryTable.findMany({});
+  const categories = await db.query.categoryTable.findMany({});
 
   const common = { alt: "Leve uma vida com estilo", sizes: "100vw" };
   const {
@@ -76,7 +76,7 @@ export default async function Home() {
         <ProductList products={products} title="Mais vendidos" />
 
         <div className="px-5 md:hidden">
-          <CategoryProduct category={category} />
+          <CategoryProduct categories={categories} />
         </div>
 
         <div className="px-5">

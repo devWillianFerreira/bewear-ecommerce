@@ -79,7 +79,13 @@ const Header = () => {
           )}
 
           <Link href="/">
-            <Image src="./logo.svg" alt="BEWEAR" width={100} height={26.14} />
+            <Image
+              src="/logo.svg"
+              alt="BEWEAR"
+              width={100}
+              height={26.14}
+              style={{ height: "auto" }}
+            />
           </Link>
           <div className="flex items-center gap-4">
             <Button
@@ -163,7 +169,6 @@ const Header = () => {
                 </SheetContent>
               </Sheet>
             )}
-            {isMobile && <div className="flex justify-between"></div>}
           </div>
         </div>
       </div>
