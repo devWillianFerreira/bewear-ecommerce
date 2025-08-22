@@ -79,7 +79,7 @@ export default async function Home() {
           <CategoryProduct categories={categories} />
         </div>
 
-        <div className="px-5">
+        <div className="px-5 md:hidden">
           <Image
             src="/banner-02.png"
             alt="Leve uma vida com estilo"
@@ -88,6 +88,36 @@ export default async function Home() {
             sizes="100vw"
             className="h-auto w-full"
           />
+        </div>
+
+        <div className="hidden grid-cols-1 gap-4 px-5 md:grid md:grid-cols-[1fr_2fr]">
+          <div className="grid grid-rows-2 gap-4">
+            <div className="">
+              <Image
+                src="/banner-nike1-desktop.png"
+                alt="Nike Therma Fit Headed"
+                width={513}
+                height={307}
+                className="h-auto w-full"
+              />
+            </div>
+            <div className="hidden md:block">
+              <Image
+                src="/banner-nike2-desktop.png"
+                alt="Nike Therma Fit Headed"
+                width={513}
+                height={307}
+                className="h-auto w-full"
+              />
+            </div>
+          </div>
+          <div className="relative w-full">
+            <Image
+              src="/banner-nike3-desktop.png"
+              alt="Leve uma vida com estilo"
+              fill
+            />
+          </div>
         </div>
 
         <ProductList products={newlyCreatedProducts} title="Novos produtos" />
