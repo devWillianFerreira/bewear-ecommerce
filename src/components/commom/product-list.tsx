@@ -2,6 +2,7 @@
 
 import { productTable, productVariantTable } from "@/db/schema";
 
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import ProductItem from "./product-item";
 
 interface ProductListProps {
@@ -13,13 +14,20 @@ interface ProductListProps {
 
 const ProductList = ({ title, products }: ProductListProps) => {
   return (
-    <div className="space-y-6 xl:px-5">
-      <h3 className="px-5 font-semibold">{title}</h3>
-      <div className="flex w-full flex-1 gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
-        {products.map((product) => (
-          <ProductItem key={product.id} product={product} />
-        ))}
-      </div>
+    <div className="space-y-6 px-5">
+      <h3 className="font-semibold">{title}</h3>
+      <Carousel>
+        <CarouselContent>
+          {products.map((product) => (
+            <CarouselItem
+              className="basis-[80%] pl-4 sm:basis-[50%] md:basis-[33.33%] lg:basis-[25%]"
+              key={product.id}
+            >
+              <ProductItem key={product.id} product={product} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
     </div>
   );
 };

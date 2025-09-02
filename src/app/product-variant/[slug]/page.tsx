@@ -42,16 +42,16 @@ const ProductVariantPage = async ({ params }: ProductVariantProps) => {
   const likelyProducts = await db.query.productTable.findMany({
     where: eq(productTable.categoryId, productVariant.product.categoryId),
     with: {
-      variants: true,
+      variants: {
+        orderBy: (variants, { asc }) => [asc(variants.id)],
+      },
     },
   });
 
   return (
     <>
-      <Header />
-      <NavigationBar />
       <div className="space-y-6">
-        <div className="grid grid-cols-1 space-y-6 px-5 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 space-y-6 px-5 lg:grid-cols-2">
           <div className="flex flex-row justify-start gap-4">
             <div className="hidden lg:block">
               <Image
@@ -68,7 +68,7 @@ const ProductVariantPage = async ({ params }: ProductVariantProps) => {
               width={0}
               sizes="100vw"
               alt={productVariant.name}
-              className="h-auto max-h-[700px] w-full max-w-[700px] rounded-lg"
+              className="h-auto w-full rounded-lg lg:max-w-[700px]"
             />
           </div>
           <div className="flex flex-col space-y-6">
