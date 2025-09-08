@@ -1,8 +1,6 @@
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 
-import Header from "@/components/commom/header";
-import NavigationBar from "@/components/commom/navigation-bar";
 import ProductItem from "@/components/commom/product-item";
 import { db } from "@/db";
 import { categoryTable, productTable } from "@/db/schema";
@@ -27,8 +25,6 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   });
   return (
     <>
-      <Header />
-      <NavigationBar />
       <div className="space-y-6 px-5">
         <h2 className="text-xl font-semibold">{category.name}</h2>
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">

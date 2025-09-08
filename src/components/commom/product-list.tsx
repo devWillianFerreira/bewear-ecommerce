@@ -20,10 +20,10 @@ const ProductList = ({ title, products }: ProductListProps) => {
         <CarouselContent>
           {products.map((product) => (
             <CarouselItem
-              className="basis-[80%] pl-4 sm:basis-[50%] md:basis-[33.33%] lg:basis-[25%]"
               key={product.id}
+              className="basis-[80%] pl-4 sm:basis-[50%] md:basis-[33.33%] lg:basis-[25%]"
             >
-              <ProductItem key={product.id} product={product} />
+              <ProductItem product={product} />
             </CarouselItem>
           ))}
         </CarouselContent>

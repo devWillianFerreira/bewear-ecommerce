@@ -3,8 +3,6 @@ import Image, { getImageProps } from "next/image";
 
 import CategoryProduct from "@/components/commom/category-product";
 import Footer from "@/components/commom/footer";
-import Header from "@/components/commom/header";
-import NavigationBar from "@/components/commom/navigation-bar";
 import PartnerBrands from "@/components/commom/partner-brands";
 import ProductList from "@/components/commom/product-list";
 import { db } from "@/db";
@@ -47,8 +45,6 @@ export default async function Home() {
   });
   return (
     <>
-      <Header />
-      <NavigationBar />
       <div className="space-y-6">
         <div className="px-5">
           <picture>
