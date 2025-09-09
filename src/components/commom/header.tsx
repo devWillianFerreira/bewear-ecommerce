@@ -26,6 +26,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
+import Cart from "./cart";
 
 const Header = () => {
   useEffect(() => {
@@ -98,18 +99,7 @@ const Header = () => {
                 <Search />
               </Link>
             </Button>
-            <div className="flex items-center">
-              <Button
-                size="icon"
-                variant="ghost"
-                className="cursor-pointer"
-                asChild
-              >
-                <Link href="/">
-                  <ShoppingBagIcon />
-                </Link>
-              </Button>
-            </div>
+            <Cart />
 
             {isMobile && (
               <Sheet>
