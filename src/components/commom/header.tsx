@@ -1,16 +1,7 @@
 "use client";
 
 import { Avatar } from "@radix-ui/react-avatar";
-import {
-  icons,
-  LogInIcon,
-  LogOut,
-  LogOutIcon,
-  MenuIcon,
-  Search,
-  ShoppingBagIcon,
-  User,
-} from "lucide-react";
+import { LogInIcon, LogOutIcon, MenuIcon, Search, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";

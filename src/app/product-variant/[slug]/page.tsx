@@ -4,14 +4,11 @@ import { notFound } from "next/navigation";
 
 import { formatCentsToBRL } from "@/app/helpers/money";
 import Footer from "@/components/commom/footer";
-import Header from "@/components/commom/header";
-import NavigationBar from "@/components/commom/navigation-bar";
 import ProductList from "@/components/commom/product-list";
-import { Button } from "@/components/ui/button";
 import { db } from "@/db";
 import { productTable, productVariantTable } from "@/db/schema";
 
-import QuantitySelector from "../components/quantity-selector";
+import ProductActions from "../components/product-actions";
 import VariantSelector from "../components/variant-selector";
 
 interface ProductVariantProps {
@@ -88,24 +85,9 @@ const ProductVariantPage = async ({ params }: ProductVariantProps) => {
               </h1>
             </div>
             <div className="order-3">
-              <QuantitySelector />
+              <ProductActions productVariantId={productVariant.id} />
             </div>
-            <div className="order-4 flex w-full flex-col gap-4 lg:flex-row">
-              <Button
-                variant="outline"
-                className="w-full cursor-pointer rounded-full lg:flex-1"
-                size="lg"
-              >
-                Adicionar à sacola
-              </Button>
-              <Button
-                className="w-full cursor-pointer rounded-full lg:flex-1"
-                size="lg"
-              >
-                Comprar Agora
-              </Button>
-            </div>
-            <div className="order-5">
+            <div className="order-4">
               <p className="text-shadow-amber-600">
                 {productVariant.product?.description}
               </p>
