@@ -1,4 +1,4 @@
-import z, { uuid } from "zod";
+import z from "zod";
 
 export const addProductToCartSchema = z.object({
   variantId: z.uuid(),
