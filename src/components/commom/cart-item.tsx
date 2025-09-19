@@ -7,6 +7,8 @@ import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
 
+import { addProductToCart } from "@/actions/add-cart-products";
+import { decreaseCartProductQuantity } from "@/actions/decrease-cart-product-quantity";
 import { removeProductFromCart } from "@/actions/remove-cart-products";
 import { formatCentsToBRL } from "@/app/helpers/money";
 
@@ -29,6 +31,7 @@ const CartItem = ({
   productVariantPriceInCents,
   quantity,
 }: CartItemProps) => {
+  const queryClient = useQueryClient();
   const removeProductFromCartMutation = useMutation({
     mutationKey: ["remove-cart-product"],
     mutationFn: () => removeProductFromCart({ cartItemId: id }),
@@ -36,8 +39,22 @@ const CartItem = ({
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });
+  const decreaseCartProduct = useMutation({
+    mutationKey: ["decrease-cart-product-quantity"],
+    mutationFn: () => decreaseCartProductQuantity({ cartItemId: id }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+  });
 
-  const queryClient = useQueryClient();
+  const increaseCartProductQuantity = useMutation({
+    mutationKey: ["increase-cart-product-quantity"],
+    mutationFn: () => addProductToCart({ variantId: id, quantity: 1 }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+  });
+
   function handleDeleteClick() {
     removeProductFromCartMutation.mutate(undefined, {
       onSuccess: () => toast.success("Produto removido com sucesso!"),
@@ -45,6 +62,14 @@ const CartItem = ({
         toast.error("Erro ao remover o produto do carrinho, tente novamente!"),
     });
   }
+
+  function handleDecreaseClick() {
+    decreaseCartProduct.mutate(undefined, {
+      onError: () =>
+        toast.error("Erro ao diminuir quantidade do produto, tente novamente!"),
+    });
+  }
+
   return (
     <div className="flex items-center justify-between">
       <Image
@@ -60,7 +85,11 @@ const CartItem = ({
           {productVariantName}
         </p>
         <div className="flex w-[100px] items-center justify-between rounded-lg border p-1">
-          <Button className="h-4 w-4" variant="ghost" onClick={() => {}}>
+          <Button
+            className="h-4 w-4"
+            variant="ghost"
+            onClick={handleDecreaseClick}
+          >
             <MinusIcon />
           </Button>
           <p className="text-xs font-medium">{quantity}</p>
