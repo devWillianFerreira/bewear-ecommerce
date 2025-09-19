@@ -16,6 +16,7 @@ import { Button } from "../ui/button";
 
 interface CartItemProps {
   id: string;
+  productVariantId: string;
   productName?: string;
   productVariantName: string;
   productVariantImageUrl: string;
@@ -26,6 +27,7 @@ interface CartItemProps {
 const CartItem = ({
   id,
   productName,
+  productVariantId,
   productVariantImageUrl,
   productVariantName,
   productVariantPriceInCents,
@@ -49,7 +51,8 @@ const CartItem = ({
 
   const increaseCartProductQuantity = useMutation({
     mutationKey: ["increase-cart-product-quantity"],
-    mutationFn: () => addProductToCart({ variantId: id, quantity: 1 }),
+    mutationFn: () =>
+      addProductToCart({ variantId: productVariantId, quantity: 1 }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
@@ -70,6 +73,12 @@ const CartItem = ({
     });
   }
 
+  function handleincreaseClick() {
+    increaseCartProductQuantity.mutate(undefined, {
+      onError: () =>
+        toast.error("Erro ao diminuir quantidade do produto, tente novamente!"),
+    });
+  }
   return (
     <div className="flex items-center justify-between">
       <Image
@@ -93,7 +102,11 @@ const CartItem = ({
             <MinusIcon />
           </Button>
           <p className="text-xs font-medium">{quantity}</p>
-          <Button className="h-4 w-4" variant="ghost" onClick={() => {}}>
+          <Button
+            className="h-4 w-4"
+            variant="ghost"
+            onClick={handleincreaseClick}
+          >
             <PlusIcon />
           </Button>
         </div>
