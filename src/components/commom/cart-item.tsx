@@ -11,6 +11,9 @@ import { addProductToCart } from "@/actions/add-cart-products";
 import { decreaseCartProductQuantity } from "@/actions/decrease-cart-product-quantity";
 import { removeProductFromCart } from "@/actions/remove-cart-products";
 import { formatCentsToBRL } from "@/app/helpers/money";
+import { useDecreaseCartProduct } from "@/app/hooks/mutations/use-decrease-cart-product";
+import { useIncreaseCartproduct } from "@/app/hooks/mutations/use-increase-cart-product";
+import { useRemoveProductFromCart } from "@/app/hooks/mutations/use-remove-cart.product";
 
 import { Button } from "../ui/button";
 
@@ -33,30 +36,11 @@ const CartItem = ({
   productVariantPriceInCents,
   quantity,
 }: CartItemProps) => {
-  const queryClient = useQueryClient();
-  const removeProductFromCartMutation = useMutation({
-    mutationKey: ["remove-cart-product"],
-    mutationFn: () => removeProductFromCart({ cartItemId: id }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    },
-  });
-  const decreaseCartProduct = useMutation({
-    mutationKey: ["decrease-cart-product-quantity"],
-    mutationFn: () => decreaseCartProductQuantity({ cartItemId: id }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    },
-  });
+  const removeProductFromCartMutation = useRemoveProductFromCart(id);
 
-  const increaseCartProductQuantity = useMutation({
-    mutationKey: ["increase-cart-product-quantity"],
-    mutationFn: () =>
-      addProductToCart({ variantId: productVariantId, quantity: 1 }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    },
-  });
+  const decreaseCartProduct = useDecreaseCartProduct(id);
+
+  const increaseCartProductQuantity = useIncreaseCartproduct(productVariantId);
 
   function handleDeleteClick() {
     removeProductFromCartMutation.mutate(undefined, {
@@ -95,7 +79,7 @@ const CartItem = ({
         </p>
         <div className="flex w-[100px] items-center justify-between rounded-lg border p-1">
           <Button
-            className="h-4 w-4"
+            className="h-4 w-4 cursor-pointer"
             variant="ghost"
             onClick={handleDecreaseClick}
           >
@@ -103,7 +87,7 @@ const CartItem = ({
           </Button>
           <p className="text-xs font-medium">{quantity}</p>
           <Button
-            className="h-4 w-4"
+            className="h-4 w-4 cursor-pointer"
             variant="ghost"
             onClick={handleincreaseClick}
           >
@@ -112,7 +96,12 @@ const CartItem = ({
         </div>
       </div>
       <div className="flex flex-col items-end justify-center gap-2">
-        <Button variant="outline" size="icon" onClick={handleDeleteClick}>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={handleDeleteClick}
+          className="cursor-pointer"
+        >
           <TrashIcon />
         </Button>
         <p className="text-sm font-bold">
