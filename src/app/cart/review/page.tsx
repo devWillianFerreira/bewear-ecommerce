@@ -1,8 +1,7 @@
 import { eq } from "drizzle-orm";
-import { Clock } from "lucide-react";
 import { headers } from "next/headers";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
 import Footer from "@/components/commom/footer";
@@ -40,11 +39,11 @@ const Review = async () => {
   });
 
   if (!cart || cart.items.length == 0) {
-    redirect("/");
+    throw new Error("Carrinho Vazio!");
   }
 
   if (!cart.items[0].productVariant.product?.categoryId) {
-    redirect("/");
+    throw new Error("Carrinho Vazio!");
   }
 
   const likelyProducts = await db.query.productTable.findMany({
@@ -60,8 +59,9 @@ const Review = async () => {
   return (
     <div className="space-y-6">
       <OrderSteps hasIdentification={false} hasPayment={false} />
+
       <div className="grid grid-cols-1 items-start gap-5 px-5 lg:grid-cols-[2fr_1fr]">
-        <div className="space-y-6 rounded-lg border p-4">
+        <div className="space-y-6 rounded-lg border p-3">
           <h1 className="text-xl font-semibold">Sacola</h1>
           <BagReview />
 
@@ -73,7 +73,7 @@ const Review = async () => {
           <h1 className="text-xl font-semibold">Resumo</h1>
           <SummaryPrice />
           <Button className="mt-5 w-full rounded-full" asChild>
-            <Link href="/cart/review">Continuar</Link>
+            <Link href="/cart/identification">Continuar</Link>
           </Button>
         </div>
       </div>
