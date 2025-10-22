@@ -39,11 +39,13 @@ const Review = async () => {
   });
 
   if (!cart || cart.items.length == 0) {
-    throw new Error("Carrinho Vazio!");
+    toast.error("Não há produtos no carrinho!");
+    redirect("/");
   }
 
   if (!cart.items[0].productVariant.product?.categoryId) {
-    throw new Error("Carrinho Vazio!");
+    toast.error("Não há produtos no carrinho!");
+    redirect("/");
   }
 
   const likelyProducts = await db.query.productTable.findMany({
