@@ -18,8 +18,9 @@ const getAddress = async () => {
   }
 
   try {
-    const address = await db.query.shippingAddressTable.findFirst({
+    const address = await db.query.shippingAddressTable.findMany({
       where: eq(shippingAddressTable.userId, session.user.id),
+      orderBy: shippingAddressTable.createdAt,
     });
 
     return address;
