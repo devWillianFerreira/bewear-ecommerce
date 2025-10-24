@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { db } from "@/db";
-import { cartTable } from "@/db/schema";
+import { cartTable, shippingAddressTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 
 import OrderSteps from "../components/order-steps";
@@ -43,6 +43,9 @@ const Identification = async () => {
     (acc, item) => acc + item.productVariant.priceInCents * item.quantity,
     0,
   );
+  const shippingAdress = await db.query.shippingAddressTable.findMany({
+    where: eq(shippingAddressTable.userId, session.user.id),
+  });
 
   return (
     <div className="space-y-5 px-5">
@@ -50,7 +53,10 @@ const Identification = async () => {
       <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[2fr_1fr]">
         <div className="space-y-6 rounded-lg border p-3">
           <h1 className="text-xl font-semibold">Identificação</h1>
-          <Address />
+          <Address
+            shippingAdresses={shippingAdress}
+            defaultshippingAdressId={cart.shippingAddress?.id || null}
+          />
         </div>
 
         <div className="h-auto rounded-lg border p-4">
