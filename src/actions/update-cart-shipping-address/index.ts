@@ -2,7 +2,6 @@
 
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
-import { success } from "zod";
 
 import { db } from "@/db";
 import { cartTable, shippingAddressTable } from "@/db/schema";
