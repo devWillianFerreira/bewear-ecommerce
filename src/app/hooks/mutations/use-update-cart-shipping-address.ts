@@ -9,7 +9,7 @@ export const getUpdateCartShippingAddressMutationKey = () => [
   "update-shipping-address",
 ];
 
-export function useUpdateCartShippingAddress() {
+export const useUpdateCartShippingAddress = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -17,7 +17,9 @@ export function useUpdateCartShippingAddress() {
     mutationFn: (data: UpdateCartShippingAddressSchema) =>
       updateCartShippingAddress(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: getUserCartQuerieKey() });
+      queryClient.invalidateQueries({
+        queryKey: getUserCartQuerieKey(),
+      });
     },
   });
-}
+};

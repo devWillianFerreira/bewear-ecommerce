@@ -39,12 +39,10 @@ const Review = async () => {
   });
 
   if (!cart || cart.items.length == 0) {
-    toast.error("Não há produtos no carrinho!");
     redirect("/");
   }
 
   if (!cart.items[0].productVariant.product?.categoryId) {
-    toast.error("Não há produtos no carrinho!");
     redirect("/");
   }
 
