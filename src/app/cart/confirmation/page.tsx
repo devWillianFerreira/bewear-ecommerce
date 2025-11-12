@@ -17,6 +17,7 @@ import { auth } from "@/lib/auth";
 import OrderSteps from "../components/order-steps";
 import YourOrders from "../components/your-orders";
 import { formatAddress } from "../helpers/address";
+import FinishOrderButton from "./components/finish-order-button";
 
 const Confirmation = async () => {
   const session = await auth.api.getSession({
@@ -73,7 +74,7 @@ const Confirmation = async () => {
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="w-full rounded-full">Finalizar Compra</Button>
+              <FinishOrderButton />
             </CardFooter>
           </Card>
         </div>
