@@ -12,7 +12,7 @@ export function useFinishOrder() {
   return useMutation({
     mutationKey: getFinishOrderMutationKey(),
     mutationFn: async () => {
-      await FinishOrder();
+      return await FinishOrder();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: getUserCartQuerieKey() });

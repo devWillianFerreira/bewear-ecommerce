@@ -1,26 +1,34 @@
 "use client";
 
+import { loadStripe } from "@stripe/stripe-js";
 import { Loader } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 
-import { useFinishOrder } from "@/app/hooks/mutations/use-finish-action";
+import { createChechoutSession } from "@/actions/create-checkout-session";
+import { useFinishOrder } from "@/app/hooks/mutations/use-finish-order";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogTitle,
-} from "@/components/ui/dialog";
 
 const FinishOrderButton = () => {
-  const [successDialogIsOpen, setSuccessDialogIsOpen] = useState(false);
   const finishOrderMutation = useFinishOrder();
-  function handleFinishOrder() {
-    finishOrderMutation.mutate();
-    setSuccessDialogIsOpen(true);
+  async function handleFinishOrder() {
+    if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+      throw new Error("Stripe publishable key is not set");
+    }
+    const { orderId } = await finishOrderMutation.mutateAsync();
+
+    const checkoutSession = await createChechoutSession({
+      orderId,
+    });
+
+    const stripe = await loadStripe(
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    );
+
+    if (!stripe) {
+      throw new Error("Failed to load Stripe");
+    }
+    await stripe.redirectToCheckout({
+      sessionId: checkoutSession.id,
+    });
   }
   return (
     <>
@@ -34,39 +42,6 @@ const FinishOrderButton = () => {
         )}
         Finalizar Compra
       </Button>
-
-      <Dialog open={successDialogIsOpen} onOpenChange={setSuccessDialogIsOpen}>
-        <DialogContent className="text-center">
-          <Image
-            src="/illustration.svg"
-            width={250}
-            height={250}
-            alt="Pedido Efetuado com sucesso!"
-            className="mx-auto"
-          />
-          <DialogTitle className="text-2xl">Pedido Efetuado!</DialogTitle>
-          <DialogDescription>
-            Seu pedido foi efetuado com sucesso. Você pode acompanhar o status
-            na seção de “Meus Pedidos”.
-          </DialogDescription>
-
-          <DialogFooter className="flex flex-col gap-4 md:flex-row">
-            <Button
-              variant="outline"
-              className="flex-1 cursor-pointer rounded-full p-2"
-              size="lg"
-            >
-              <Link href="/">Página Inical</Link>
-            </Button>
-            <Button
-              className="flex-1 cursor-pointer rounded-full p-2"
-              size="lg"
-            >
-              Ver meus pedidos
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </>
   );
 };
