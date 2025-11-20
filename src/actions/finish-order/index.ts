@@ -3,7 +3,6 @@
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 
-import CartItem from "@/components/commom/cart-item";
 import { db } from "@/db";
 import {
   cartItemTable,

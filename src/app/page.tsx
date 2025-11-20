@@ -88,7 +88,7 @@ export default async function Home() {
 
         <div className="hidden grid-cols-1 gap-4 px-5 md:grid md:grid-cols-[1fr_2fr]">
           <div className="grid grid-rows-2 gap-4">
-            <div className="">
+            <div>
               <Image
                 src="/banner-nike1-desktop.png"
                 alt="Nike Therma Fit Headed"
