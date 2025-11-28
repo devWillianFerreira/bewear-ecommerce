@@ -1,12 +1,14 @@
 import Link from "next/link";
 
 import { db } from "@/db";
-
-const NavigationBar = async () => {
-  const category = await db.query.categoryTable.findMany({});
+import { categoryTable } from "@/db/schema";
+interface NavigationBarProps {
+  categories: Array<typeof categoryTable.$inferSelect>;
+}
+const NavigationBar = async ({ categories }: NavigationBarProps) => {
   return (
     <div className="mb-6 hidden w-full justify-between space-y-6 border-b-1 md:flex md:px-20 lg:px-30">
-      {category.map((category) => (
+      {categories.map((category) => (
         <Link
           href={`/category/${category.slug}`}
           className="font-medium text-[#656565] hover:text-[#474747]"

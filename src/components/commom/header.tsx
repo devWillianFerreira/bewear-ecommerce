@@ -1,15 +1,26 @@
 "use client";
 
 import { Avatar } from "@radix-ui/react-avatar";
-import { LogInIcon, LogOutIcon, MenuIcon, Search, User } from "lucide-react";
+import {
+  Home,
+  LogInIcon,
+  LogOutIcon,
+  MenuIcon,
+  Search,
+  ShoppingBag,
+  Truck,
+  User,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { categoryTable } from "@/db/schema";
 import { authClient } from "@/lib/auth-client";
 
 import { AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -18,8 +29,11 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import Cart from "./cart";
+interface HeaderProps {
+  categories: Array<typeof categoryTable.$inferSelect>;
+}
 
-const Header = () => {
+const Header = ({ categories }: HeaderProps) => {
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth < 768) {
@@ -103,7 +117,7 @@ const Header = () => {
                   <SheetHeader>
                     <SheetTitle>Menu</SheetTitle>
                   </SheetHeader>
-                  <div className="px-5">
+                  <div className="space-y-5 px-4">
                     {session?.user ? (
                       <>
                         <div className="flex justify-between space-y-6">
@@ -127,24 +141,70 @@ const Header = () => {
                               </span>
                             </div>
                           </div>
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={() => authClient.signOut()}
-                          >
-                            <LogOutIcon />
-                          </Button>
                         </div>
                       </>
                     ) : (
-                      <div className="flex justify-between">
-                        <h2>Olá. Faça o seu login!</h2>
-                        <Button variant="outline" asChild size="icon">
-                          <Link href="/authentication">
-                            <LogInIcon />
-                          </Link>
-                        </Button>
+                      <div className="space-y-5">
+                        <div className="flex items-center justify-between">
+                          <h2 className="font-semibold">
+                            Olá. Faça o seu login!
+                          </h2>
+                          <Button variant="default" asChild>
+                            <Link href="/authentication">
+                              Login
+                              <LogInIcon />
+                            </Link>
+                          </Button>
+                        </div>
                       </div>
+                    )}
+
+                    <Separator />
+
+                    <div className="space-y-3">
+                      <Link
+                        href="/"
+                        className="flex flex-row items-center gap-3 font-semibold"
+                      >
+                        <Home size={16} />
+                        <h2>Início</h2>
+                      </Link>
+                      <Link
+                        href="/my-orders"
+                        className="flex flex-row items-center gap-3 font-semibold"
+                      >
+                        <Truck size={16} />
+                        <h2>Meus Pedidos</h2>
+                      </Link>
+                      <Link
+                        href="/cart/review"
+                        className="flex flex-row items-center gap-3 font-semibold"
+                      >
+                        <ShoppingBag size={16} />
+                        <h2>Sacola</h2>
+                      </Link>
+                    </div>
+
+                    <Separator />
+                    <div className="flex flex-col space-y-3">
+                      {categories.map((category) => (
+                        <Link
+                          key={category.id}
+                          href={`/category/${category.slug}`}
+                        >
+                          <span className="font-semibold">{category.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                    <Separator />
+                    {session?.user && (
+                      <button
+                        onClick={() => authClient.signOut()}
+                        className="text-muted-foreground flex w-full items-center justify-start gap-3 font-semibold"
+                      >
+                        <LogOutIcon size={16} />
+                        <span>Sair da conta</span>
+                      </button>
                     )}
                   </div>
                 </SheetContent>
