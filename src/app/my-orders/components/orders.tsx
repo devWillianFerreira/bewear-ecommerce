@@ -31,9 +31,9 @@ interface OrderProps {
 
 const Orders = ({ orders }: OrderProps) => {
   return (
-    <div className="space-y-3">
+    <div>
       {orders.map((order) => (
-        <Card key={order.id}>
+        <Card key={order.id} className="mb-3">
           <CardContent>
             <Accordion type="single" collapsible key={order.id}>
               <AccordionItem value="item-1">

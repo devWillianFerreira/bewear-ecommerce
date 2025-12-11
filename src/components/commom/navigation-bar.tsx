@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { db } from "@/db";
 import { categoryTable } from "@/db/schema";
 interface NavigationBarProps {
   categories: Array<typeof categoryTable.$inferSelect>;
