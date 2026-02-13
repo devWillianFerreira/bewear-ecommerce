@@ -46,17 +46,11 @@ const ProductActions = ({ productVariantId }: ProductActionsProps) => {
             </Button>
           </div>
         </div>
-        <div className="order-4 flex w-full flex-col gap-4 lg:flex-row">
+        <div className="order-4 w-full">
           <AddToCartButton
             productVariantId={productVariantId}
             quantity={quantity}
           />
-          <Button
-            className="w-full cursor-pointer rounded-full lg:flex-1"
-            size="lg"
-          >
-            Comprar Agora
-          </Button>
         </div>
       </div>
     </>

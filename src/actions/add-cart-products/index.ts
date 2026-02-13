@@ -63,4 +63,8 @@ export const addProductToCart = async (data: AddProductToCartSchema) => {
     productVariantId: data.variantId,
     quantity: data.quantity,
   });
+
+  return {
+    sucess: true,
+  };
 };
