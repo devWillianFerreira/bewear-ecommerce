@@ -3,6 +3,7 @@
 import { Avatar } from "@radix-ui/react-avatar";
 import {
   Home,
+  HomeIcon,
   LogInIcon,
   LogOutIcon,
   MenuIcon,
@@ -13,13 +14,19 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 import { categoryTable } from "@/db/schema";
 import { authClient } from "@/lib/auth-client";
 
 import { AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 import { Separator } from "../ui/separator";
 import {
   Sheet,
@@ -34,66 +41,72 @@ interface HeaderProps {
 }
 
 const Header = ({ categories }: HeaderProps) => {
-  useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth < 768) {
-        setIsMobile(true);
-      } else {
-        setIsMobile(false);
-      }
-    }
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-  const [isMobile, setIsMobile] = useState(false);
   const { data: session } = authClient.useSession();
   return (
     <header>
       <div className="flex flex-col">
-        <div className="flex justify-between p-5">
-          {!isMobile && (
-            <div>
-              {!session?.user ? (
-                <div className="flex items-center gap-4">
-                  <h2>Olá. Faça o seu login!</h2>
-                  <Button variant="outline" asChild size="icon">
-                    <Link href="/authentication">
-                      <LogInIcon />
-                    </Link>
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-4">
-                  <User />
-                  <h3 className="font-semibold">
-                    Olá, {session?.user?.name.split(" ")[0]}
-                  </h3>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => authClient.signOut()}
-                  >
-                    <LogOutIcon />
-                  </Button>
-                </div>
-              )}
-            </div>
-          )}
+        <div className="grid grid-cols-[auto_auto] justify-between p-5 md:grid-cols-[1fr_auto_1fr]">
+          <div className="hidden md:block">
+            {!session?.user ? (
+              <div className="flex items-center gap-4">
+                <h2>Olá. Faça o seu login!</h2>
+                <Button variant="outline" asChild size="icon">
+                  <Link href="/authentication">
+                    <LogInIcon />
+                  </Link>
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-4">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline">
+                      <User />
+                      <h3 className="font-semibold">
+                        Olá, {session?.user?.name.split(" ")[0]}
+                      </h3>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem asChild>
+                      <Link href="/">
+                        <HomeIcon />
+                        Início
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/my-orders">
+                        <Truck size={16} />
+                        Meus Pedidos
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={() => authClient.signOut()}
+                      variant="destructive"
+                    >
+                      <LogOutIcon />
+                      Sair da conta
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            )}
+          </div>
 
-          <Link href="/">
-            <Image
-              src="/logo.svg"
-              alt="BEWEAR"
-              width={100}
-              height={26.14}
-              style={{ height: "auto" }}
-            />
-          </Link>
-          <div className="flex items-center gap-4">
+          <div className="justify-self-center">
+            <Link href="/">
+              <Image
+                src="/logo.svg"
+                alt="BEWEAR"
+                width={100}
+                height={26.14}
+                style={{ height: "auto" }}
+              />
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-4 justify-self-end">
             <Button
               size="icon"
               variant="ghost"
@@ -106,7 +119,7 @@ const Header = ({ categories }: HeaderProps) => {
             </Button>
             <Cart />
 
-            {isMobile && (
+            <div className="md:hidden">
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="outline" size="icon">
@@ -209,7 +222,7 @@ const Header = ({ categories }: HeaderProps) => {
                   </div>
                 </SheetContent>
               </Sheet>
-            )}
+            </div>
           </div>
         </div>
       </div>
