@@ -3,6 +3,7 @@
 import { Clock } from "lucide-react";
 
 import { useCart } from "@/app/hooks/queries/use-cart";
+import { Separator } from "@/components/ui/separator";
 
 import BagItemReview from "./bag-item-review";
 
@@ -20,17 +21,19 @@ const BagReview = () => {
                 new Date(b.createdAt).getTime(),
             )
             .map((item) => (
-              <BagItemReview
-                key={item.id}
-                id={item.id}
-                description={item.productVariant.name}
-                productName={item.productVariant.product?.name}
-                productVariantId={item.productVariant.id}
-                productVariantName={item.productVariant.name}
-                productVariantImageUrl={item.productVariant.imageUrl}
-                productVariantPriceInCents={item.productVariant.priceInCents}
-                quantity={item.quantity}
-              />
+              <div key={item.id} className="pt-5">
+                <BagItemReview
+                  id={item.id}
+                  description={item.productVariant.name}
+                  productName={item.productVariant.product?.name}
+                  productVariantId={item.productVariant.id}
+                  productVariantName={item.productVariant.name}
+                  productVariantImageUrl={item.productVariant.imageUrl}
+                  productVariantPriceInCents={item.productVariant.priceInCents}
+                  quantity={item.quantity}
+                />
+                <Separator />
+              </div>
             ))}
           <h3 className="flex flex-row items-center gap-3 pt-5 text-[#BA861E]">
             <Clock size={20} /> Apenas algumas restantes. Compre logo.

@@ -57,7 +57,7 @@ const BagItemReview = ({
     });
   }
   return (
-    <div className="flex flex-row items-center justify-between gap-5 border-b pb-5">
+    <div className="pt- flex flex-row items-center justify-between gap-5 pb-5">
       <div className="flex flex-row items-center gap-4">
         <Image
           src={productVariantImageUrl}
