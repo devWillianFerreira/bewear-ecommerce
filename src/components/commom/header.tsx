@@ -14,12 +14,23 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
+import { formatCentsToBRL } from "@/app/helpers/money";
 import { categoryTable } from "@/db/schema";
 import { authClient } from "@/lib/auth-client";
 
 import { AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,6 +38,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { Input } from "../ui/input";
+import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 import {
   Sheet,
@@ -40,7 +53,50 @@ interface HeaderProps {
   categories: Array<typeof categoryTable.$inferSelect>;
 }
 
+interface productProps {
+  id: string;
+  productName: string;
+  productVariantName: string;
+  imageUrl: string;
+  slug: string;
+  priceInCents: number;
+}
+
 const Header = ({ categories }: HeaderProps) => {
+  const searchParams = useSearchParams();
+  const pathName = usePathname();
+  const { replace } = useRouter();
+
+  const [query, setQuery] = useState("");
+  const [products, setProducts] = useState<productProps[]>([]);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  useEffect(() => {
+    if (!query) {
+      setProducts([]);
+      return;
+    }
+    const timeout = setTimeout(async () => {
+      const res = await fetch(`/api/search?search=${query}`);
+      const data = await res.json();
+      setProducts(data);
+    }, 400);
+    return () => clearTimeout(timeout);
+  }, [query]);
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const params = new URLSearchParams();
+    const searchString = event.currentTarget.value;
+    setQuery(searchString);
+
+    if (searchString) {
+      params.set("search", searchString);
+    } else {
+      params.delete("search");
+    }
+    replace(`${pathName}?${params.toString()}`);
+  }
+
   const { data: session } = authClient.useSession();
   return (
     <header>
@@ -107,16 +163,78 @@ const Header = ({ categories }: HeaderProps) => {
           </div>
 
           <div className="flex items-center gap-4 justify-self-end">
-            <Button
-              size="icon"
-              variant="ghost"
-              className="cursor-pointer"
-              asChild
-            >
-              <Link href="/">
-                <Search />
-              </Link>
-            </Button>
+            <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+              <DialogTrigger asChild>
+                <Button variant="ghost" size="icon" className="cursor-pointer">
+                  <Search />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="flex h-[30vh] flex-col sm:mx-auto md:max-w-2xl lg:max-w-4xl">
+                <DialogHeader>
+                  <DialogTitle>O que você está procurando?</DialogTitle>
+                </DialogHeader>
+
+                <div className="mt-2">
+                  <Input type="search" onChange={handleChange} />
+                </div>
+
+                {!products.length ? (
+                  <div className="text-muted-foreground flex flex-col gap-3">
+                    <h1>Termos mais buscados</h1>
+                    <div className="flex gap-2">
+                      <Badge variant="outline">Tênis Nike </Badge>
+                      <Badge variant="outline">Camiseta</Badge>
+                      <Badge variant="outline">Jaqueta </Badge>
+                    </div>
+                  </div>
+                ) : (
+                  <ScrollArea className="mt-4 h-full min-h-0 flex-1">
+                    <div className="flex flex-col gap-3">
+                      {products.map((product) => (
+                        <div key={product.id}>
+                          <Link
+                            href={`product-variant/${product.slug}`}
+                            onClick={() => {
+                              setOpenDialog(false);
+                              const params = new URLSearchParams(
+                                searchParams.toString(),
+                              );
+                              params.delete("search");
+
+                              replace(`${pathName}?${params.toString()}`);
+                            }}
+                          >
+                            <div className="flex flex-row items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <Image
+                                  src={product.imageUrl}
+                                  width={80}
+                                  height={80}
+                                  alt={product.productName}
+                                  className="rounded-md"
+                                />
+                                <div>
+                                  <p className="font-semibold">
+                                    {product.productName}{" "}
+                                  </p>
+                                  <p className="text-muted-foreground">
+                                    {product.productVariantName}
+                                  </p>
+                                </div>
+                              </div>
+                              <p className="text-muted-foreground">
+                                {formatCentsToBRL(product.priceInCents)}
+                              </p>
+                            </div>
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                )}
+              </DialogContent>
+            </Dialog>
+
             <Cart />
 
             <div className="md:hidden">
