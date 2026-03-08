@@ -14,11 +14,12 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import { formatCentsToBRL } from "@/app/helpers/money";
 import { categoryTable } from "@/db/schema";
+import { auth } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
 
 import { AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -49,8 +50,10 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import Cart from "./cart";
+
 interface HeaderProps {
   categories: Array<typeof categoryTable.$inferSelect>;
+  session: Awaited<ReturnType<typeof auth.api.getSession>>;
 }
 
 interface productProps {
@@ -62,20 +65,22 @@ interface productProps {
   priceInCents: number;
 }
 
-const Header = ({ categories }: HeaderProps) => {
-  const searchParams = useSearchParams();
+const Header = ({ categories, session }: HeaderProps) => {
   const pathName = usePathname();
   const { replace } = useRouter();
+  const params = new URLSearchParams();
 
   const [query, setQuery] = useState("");
   const [products, setProducts] = useState<productProps[]>([]);
   const [openDialog, setOpenDialog] = useState(false);
+  const route = useRouter();
 
   useEffect(() => {
     if (!query) {
       setProducts([]);
       return;
     }
+
     const timeout = setTimeout(async () => {
       const res = await fetch(`/api/search?search=${query}`);
       const data = await res.json();
@@ -85,7 +90,6 @@ const Header = ({ categories }: HeaderProps) => {
   }, [query]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const params = new URLSearchParams();
     const searchString = event.currentTarget.value;
     setQuery(searchString);
 
@@ -97,7 +101,6 @@ const Header = ({ categories }: HeaderProps) => {
     replace(`${pathName}?${params.toString()}`);
   }
 
-  const { data: session } = authClient.useSession();
   return (
     <header>
       <div className="flex flex-col">
@@ -138,7 +141,10 @@ const Header = ({ categories }: HeaderProps) => {
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
-                      onClick={() => authClient.signOut()}
+                      onClick={async () => {
+                        await authClient.signOut();
+                        route.refresh();
+                      }}
                       variant="destructive"
                     >
                       <LogOutIcon />
@@ -193,16 +199,11 @@ const Header = ({ categories }: HeaderProps) => {
                       {products.map((product) => (
                         <div key={product.id}>
                           <Link
-                            href={`product-variant/${product.slug}`}
+                            href={`/product-variant/${product.slug}`}
                             onClick={() => {
                               setOpenDialog(false);
-                              const params = new URLSearchParams(
-                                searchParams.toString(),
-                              );
-                              params.delete("search");
-
-                              replace(`${pathName}?${params.toString()}`);
                             }}
+                            replace
                           >
                             <div className="flex flex-row items-center justify-between">
                               <div className="flex items-center gap-3">
@@ -330,7 +331,9 @@ const Header = ({ categories }: HeaderProps) => {
                     <Separator />
                     {session?.user && (
                       <button
-                        onClick={() => authClient.signOut()}
+                        onClick={() => {
+                          authClient.signOut();
+                        }}
                         className="text-muted-foreground flex w-full items-center justify-start gap-3 font-semibold"
                       >
                         <LogOutIcon size={16} />

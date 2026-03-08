@@ -2,11 +2,13 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { headers } from "next/headers";
 import { Toaster } from "sonner";
 
 import Header from "@/components/commom/header";
 import NavigationBar from "@/components/commom/navigation-bar";
 import { db } from "@/db";
+import { auth } from "@/lib/auth";
 import ReactQueryProvider from "@/providers/react-query";
 
 const geistSans = Geist({
@@ -30,6 +32,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const category = await db.query.categoryTable.findMany({});
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   return (
     <html lang="en">
       <body
@@ -37,6 +42,7 @@ export default async function RootLayout({
       >
         <ReactQueryProvider>
           <Header
+            session={session}
             categories={category.map((category) => ({
               id: category.id,
               name: category.name,
@@ -44,6 +50,7 @@ export default async function RootLayout({
               created: category.created,
             }))}
           />
+
           <NavigationBar
             categories={category.map((category) => ({
               id: category.id,
