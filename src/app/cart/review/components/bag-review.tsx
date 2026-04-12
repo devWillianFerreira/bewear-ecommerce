@@ -21,7 +21,7 @@ const BagReview = () => {
                 new Date(b.createdAt).getTime(),
             )
             .map((item) => (
-              <div key={item.id} className="pt-5">
+              <div key={item.id}>
                 <BagItemReview
                   id={item.id}
                   description={item.productVariant.name}
@@ -32,7 +32,7 @@ const BagReview = () => {
                   productVariantPriceInCents={item.productVariant.priceInCents}
                   quantity={item.quantity}
                 />
-                <Separator />
+                <Separator className="my-4" />
               </div>
             ))}
           <h3 className="flex flex-row items-center gap-3 pt-5 text-[#BA861E]">
