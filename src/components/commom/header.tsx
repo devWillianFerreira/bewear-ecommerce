@@ -14,10 +14,11 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import { formatCentsToBRL } from "@/app/helpers/money";
+import { useSearchProducts } from "@/app/hooks/queries/use-products";
 import { categoryTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
@@ -66,39 +67,35 @@ interface productProps {
 }
 
 const Header = ({ categories, session }: HeaderProps) => {
-  const pathName = usePathname();
-  const { replace } = useRouter();
-  const params = new URLSearchParams();
+  const router = useRouter();
 
   const [query, setQuery] = useState("");
-  const [products, setProducts] = useState<productProps[]>([]);
+  const debouncedSearch = useDebounce(query, 3000);
+  const { data, isPending } = useSearchProducts(debouncedSearch);
+  const products = data ?? [];
   const [openDialog, setOpenDialog] = useState(false);
-  const route = useRouter();
 
-  useEffect(() => {
-    if (!query) {
-      setProducts([]);
-      return;
-    }
+  function useDebounce(value: string, delay: number) {
+    const [debouncedValue, setDebouncedValue] = useState<string>(value);
 
-    const timeout = setTimeout(async () => {
-      const res = await fetch(`/api/search?search=${query}`);
-      const data = await res.json();
-      setProducts(data);
-    }, 400);
-    return () => clearTimeout(timeout);
-  }, [query]);
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setDebouncedValue(value);
+      }, delay);
+
+      return () => clearTimeout(timer);
+    }, [value, delay]);
+
+    return debouncedValue;
+  }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const searchString = event.currentTarget.value;
     setQuery(searchString);
+  }
 
-    if (searchString) {
-      params.set("search", searchString);
-    } else {
-      params.delete("search");
-    }
-    replace(`${pathName}?${params.toString()}`);
+  function handleOpenDialog(isOpen: boolean) {
+    setOpenDialog(isOpen);
   }
 
   return (
@@ -141,10 +138,7 @@ const Header = ({ categories, session }: HeaderProps) => {
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
-                      onClick={async () => {
-                        await authClient.signOut();
-                        route.refresh();
-                      }}
+                      onClick={async () => await authClient.signOut()}
                       variant="destructive"
                     >
                       <LogOutIcon />
@@ -169,7 +163,7 @@ const Header = ({ categories, session }: HeaderProps) => {
           </div>
 
           <div className="flex items-center gap-4 justify-self-end">
-            <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+            <Dialog open={openDialog} onOpenChange={handleOpenDialog}>
               <DialogTrigger asChild>
                 <Button variant="ghost" size="icon" className="cursor-pointer">
                   <Search />
@@ -199,32 +193,33 @@ const Header = ({ categories, session }: HeaderProps) => {
                       {products.map((product) => (
                         <div key={product.id}>
                           <Link
-                            href={`/product-variant/${product.slug}`}
+                            href={`/product-variant/${product.variants[0].slug}`}
                             onClick={() => {
                               setOpenDialog(false);
                             }}
-                            replace
                           >
                             <div className="flex flex-row items-center justify-between">
                               <div className="flex items-center gap-3">
                                 <Image
-                                  src={product.imageUrl}
+                                  src={product.variants[0].imageUrl}
                                   width={80}
                                   height={80}
-                                  alt={product.productName}
+                                  alt={product.name}
                                   className="rounded-md"
                                 />
                                 <div>
                                   <p className="font-semibold">
-                                    {product.productName}{" "}
+                                    {product.name}{" "}
                                   </p>
                                   <p className="text-muted-foreground">
-                                    {product.productVariantName}
+                                    {product.variants[0].color}
                                   </p>
                                 </div>
                               </div>
                               <p className="text-muted-foreground">
-                                {formatCentsToBRL(product.priceInCents)}
+                                {formatCentsToBRL(
+                                  product.variants[0].priceInCents,
+                                )}
                               </p>
                             </div>
                           </Link>
