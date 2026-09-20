@@ -9,7 +9,7 @@ const brands = [
   { id: 4, imageUrl: "/vector-3.svg", alt: "New Balance" },
   { id: 5, imageUrl: "/vector-4.svg", alt: "Converse" },
   { id: 6, imageUrl: "/vector-5.svg", alt: "Polo" },
-  { id: 7, imageUrl: "/vector-6.svg", alt: "Polo" },
+  { id: 7, imageUrl: "/vector-6.svg", alt: "Zara" },
 ];
 
 const PartnerBrands = () => {
