@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import { formatCentsToBRL } from "@/app/helpers/money";
@@ -57,23 +56,13 @@ interface HeaderProps {
   session: Awaited<ReturnType<typeof auth.api.getSession>>;
 }
 
-interface productProps {
-  id: string;
-  productName: string;
-  productVariantName: string;
-  imageUrl: string;
-  slug: string;
-  priceInCents: number;
-}
-
 const Header = ({ categories, session }: HeaderProps) => {
-  const router = useRouter();
-
   const [query, setQuery] = useState("");
   const debouncedSearch = useDebounce(query, 3000);
-  const { data, isPending } = useSearchProducts(debouncedSearch);
+  const { data, isFetching } = useSearchProducts(debouncedSearch);
   const products = data ?? [];
   const [openDialog, setOpenDialog] = useState(false);
+  const isSearching = query !== debouncedSearch || isFetching;
 
   function useDebounce(value: string, delay: number) {
     const [debouncedValue, setDebouncedValue] = useState<string>(value);
@@ -178,7 +167,7 @@ const Header = ({ categories, session }: HeaderProps) => {
                   <Input type="search" onChange={handleChange} />
                 </div>
 
-                {!products.length ? (
+                {query.trim().length < 1 ? (
                   <div className="text-muted-foreground flex flex-col gap-3">
                     <h1>Termos mais buscados</h1>
                     <div className="flex gap-2">
@@ -186,6 +175,16 @@ const Header = ({ categories, session }: HeaderProps) => {
                       <Badge variant="outline">Camiseta</Badge>
                       <Badge variant="outline">Jaqueta </Badge>
                     </div>
+                  </div>
+                ) : isSearching ? (
+                  <h1 className="text-center font-medium">
+                    Carregando produtos...
+                  </h1>
+                ) : !products.length ? (
+                  <div>
+                    <h1 className="text-center font-medium">
+                      Ops! Não encontramos nenhum produto.
+                    </h1>
                   </div>
                 ) : (
                   <ScrollArea className="mt-4 h-full min-h-0 flex-1">
