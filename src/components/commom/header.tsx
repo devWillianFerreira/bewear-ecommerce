@@ -53,10 +53,10 @@ import Cart from "./cart";
 
 interface HeaderProps {
   categories: Array<typeof categoryTable.$inferSelect>;
-  session: Awaited<ReturnType<typeof auth.api.getSession>>;
 }
 
-const Header = ({ categories, session }: HeaderProps) => {
+const Header = ({ categories }: HeaderProps) => {
+  const { data: session } = authClient.useSession();
   const [query, setQuery] = useState("");
   const debouncedSearch = useDebounce(query, 3000);
   const { data, isFetching } = useSearchProducts(debouncedSearch);
