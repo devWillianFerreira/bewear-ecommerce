@@ -11,5 +11,9 @@ export const useCart = (params?: {
     queryKey: getUserCartQuerieKey(),
     queryFn: getCart,
     initialData: params?.initialData,
+    select: (cart) => ({
+      items: cart.items,
+      totalPriceInCents: cart.totalPriceInCents,
+    }),
   });
 };

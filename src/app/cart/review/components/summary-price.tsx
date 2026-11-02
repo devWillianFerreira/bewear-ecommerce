@@ -1,16 +1,12 @@
 "use client";
 
-import { redirect } from "next/navigation";
-
 import { formatCentsToBRL } from "@/app/helpers/money";
 import { useCart } from "@/app/hooks/queries/use-cart";
 import { Separator } from "@/components/ui/separator";
 
 const SummaryPrice = () => {
-  const { data: cart } = useCart();
-  if (!cart) {
-    redirect("/");
-  }
+  const { data: cart = { items: [], totalPriceInCents: 0 } } = useCart();
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between text-xs font-medium">

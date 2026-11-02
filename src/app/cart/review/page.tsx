@@ -4,7 +4,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
-import Footer from "@/components/commom/footer";
 import ProductList from "@/components/commom/product-list";
 import { Button } from "@/components/ui/button";
 import { db } from "@/db";
@@ -38,23 +37,16 @@ const Review = async () => {
     },
   });
 
-  if (!cart || cart.items.length == 0) {
-    redirect("/");
-  }
+  const firstProduct = cart?.items[0]?.productVariant.product;
 
-  if (!cart.items[0].productVariant.product?.categoryId) {
-    redirect("/");
-  }
-
-  const likelyProducts = await db.query.productTable.findMany({
-    where: eq(
-      productTable.categoryId,
-      cart.items[0].productVariant.product.categoryId,
-    ),
-    with: {
-      variants: true,
-    },
-  });
+  const likelyProducts = firstProduct?.categoryId
+    ? await db.query.productTable.findMany({
+        where: eq(productTable.categoryId, firstProduct.categoryId),
+        with: {
+          variants: true,
+        },
+      })
+    : [];
 
   return (
     <div className="space-y-6">
@@ -77,8 +69,12 @@ const Review = async () => {
           </Button>
         </div>
       </div>
-      <ProductList title="Você também pode gostar" products={likelyProducts} />
-      <Footer />
+      {firstProduct && (
+        <ProductList
+          title="Você também pode gostar"
+          products={likelyProducts}
+        />
+      )}
     </div>
   );
 };
