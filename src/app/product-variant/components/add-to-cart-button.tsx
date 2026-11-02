@@ -1,11 +1,8 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { toast } from "sonner";
-import { boolean } from "zod";
 
 import { addProductToCart } from "@/actions/add-cart-products";
 import { Button } from "@/components/ui/button";
