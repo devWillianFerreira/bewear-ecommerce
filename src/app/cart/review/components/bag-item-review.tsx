@@ -46,7 +46,7 @@ const BagItemReview = ({
     });
   }
   return (
-    <div className="grid grid-cols-[auto_1fr_auto] justify-between gap-4">
+    <div className="grid grid-cols-[auto_1fr_auto] items-center justify-between gap-4">
       <Image
         src={productVariantImageUrl}
         width={0}
