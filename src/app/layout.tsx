@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 
+import Footer from "@/components/commom/footer";
 import Header from "@/components/commom/header";
 import NavigationBar from "@/components/commom/navigation-bar";
 import { db } from "@/db";
@@ -32,9 +33,9 @@ export default async function RootLayout({
   const category = await db.query.categoryTable.findMany({});
 
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} flex min-h-dvh flex-col antialiased`}
       >
         <ReactQueryProvider>
           <Header
@@ -54,7 +55,8 @@ export default async function RootLayout({
               created: category.created,
             }))}
           />
-          {children}
+          <main className="flex-1 py-6">{children}</main>
+          <Footer />
         </ReactQueryProvider>
         <Toaster />
       </body>

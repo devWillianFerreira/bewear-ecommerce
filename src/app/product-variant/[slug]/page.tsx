@@ -3,7 +3,6 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { formatCentsToBRL } from "@/app/helpers/money";
-import Footer from "@/components/commom/footer";
 import ProductList from "@/components/commom/product-list";
 import { db } from "@/db";
 import { productTable, productVariantTable } from "@/db/schema";
@@ -98,7 +97,6 @@ const ProductVariantPage = async ({ params }: ProductVariantProps) => {
           title="Você também pode gostar"
           products={likelyProducts}
         />
-        <Footer />
       </div>
     </>
   );
