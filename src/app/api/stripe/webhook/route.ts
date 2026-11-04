@@ -38,5 +38,3 @@ export const POST = async (request: Request) => {
 
   return NextResponse.json({ received: true });
 };
-
-export default POST;

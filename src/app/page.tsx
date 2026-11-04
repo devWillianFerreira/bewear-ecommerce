@@ -2,7 +2,6 @@ import { desc } from "drizzle-orm";
 import Image, { getImageProps } from "next/image";
 
 import CategoryProduct from "@/components/commom/category-product";
-import Footer from "@/components/commom/footer";
 import PartnerBrands from "@/components/commom/partner-brands";
 import ProductList from "@/components/commom/product-list";
 import { db } from "@/db";

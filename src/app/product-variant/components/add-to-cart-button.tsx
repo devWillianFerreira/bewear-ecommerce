@@ -20,7 +20,7 @@ const AddToCartButton = ({
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationKey: ["addProductToCart", productVariantId, quantity],
-    mutationFn: ({ buyNow }: { buyNow?: boolean }) =>
+    mutationFn: ({}: { buyNow?: boolean }) =>
       addProductToCart({
         variantId: productVariantId,
         quantity,

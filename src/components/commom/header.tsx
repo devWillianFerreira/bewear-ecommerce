@@ -19,7 +19,6 @@ import React, { useEffect, useState } from "react";
 import { formatCentsToBRL } from "@/app/helpers/money";
 import { useSearchProducts } from "@/app/hooks/queries/use-products";
 import { categoryTable } from "@/db/schema";
-import { auth } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
 
 import { AvatarFallback, AvatarImage } from "../ui/avatar";
