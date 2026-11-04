@@ -32,24 +32,34 @@ const MyOrderPage = async () => {
   });
 
   return (
-    <div className="space-y-5 px-5">
+    <div className="flex min-h-[calc(100vh-300px)] flex-col space-y-5 px-5">
       <h1 className="font-bold md:text-xl">Meus pedidos</h1>
-      <Orders
-        orders={orders.map((order) => ({
-          id: order.id,
-          status: order.status,
-          totalPriceInCents: order.totalPriceInCents,
-          createdAt: order.createdAt,
-          items: order.items.map((item) => ({
-            id: item.id,
-            imageUr: item.productVariant.imageUrl,
-            productName: item.productVariant.product?.name,
-            productVariantName: item.productVariant.name,
-            priceInCents: item.priceInCents,
-            quantity: item.quantity,
-          })),
-        }))}
-      />
+      {!orders.length && (
+        <div className="flex h-full w-full flex-1 items-center justify-center">
+          <h1 className="font-semibold">
+            Você ainda não realizou nenhum pedido. Explore nossa loja e encontre
+            seus produtos favoritos!
+          </h1>
+        </div>
+      )}
+      {
+        <Orders
+          orders={orders.map((order) => ({
+            id: order.id,
+            status: order.status,
+            totalPriceInCents: order.totalPriceInCents,
+            createdAt: order.createdAt,
+            items: order.items.map((item) => ({
+              id: item.id,
+              imageUr: item.productVariant.imageUrl,
+              productName: item.productVariant.product?.name,
+              productVariantName: item.productVariant.name,
+              priceInCents: item.priceInCents,
+              quantity: item.quantity,
+            })),
+          }))}
+        />
+      }
     </div>
   );
 };
