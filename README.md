@@ -382,32 +382,6 @@ Quando recebe o evento `checkout.session.completed`, localiza o pedido
 pelo identificador armazenado nos metadados da sessão e atualiza seu
 status para `paid`.
 
-## Modelagem do banco de dados
-
-O schema do Drizzle define as seguintes entidades:
-
-  Tabela               Responsabilidade
-  -------------------- ---------------------------------------------------------
-  `user`               Dados dos usuários
-  `session`            Sessões de autenticação
-  `account`            Contas e provedores de autenticação
-  `verification`       Dados de verificação do Better Auth
-  `category`           Categorias do catálogo
-  `product`            Produtos e suas descrições
-  `product_variant`    Variações de produtos, cores, imagens e preços
-  `shipping_address`   Endereços de entrega dos usuários
-  `cart`               Carrinho associado ao usuário e ao endereço selecionado
-  `cart_item`          Itens e quantidades do carrinho
-  `order`              Pedidos, endereço de entrega, total e status
-  `order_item`         Produtos, quantidades e preços registrados no pedido
-
-Os preços são armazenados em centavos (`priceInCents` e
-`totalPriceInCents`), evitando o uso de valores monetários em ponto
-flutuante nas operações de persistência.
-
-Os status de pedido definidos no schema são: - `pending`: aguardando
-pagamento. - `paid`: pagamento confirmado. - `canceled`: pedido
-cancelado.
 
 ## Configuração do ambiente
 
