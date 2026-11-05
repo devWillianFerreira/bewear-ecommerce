@@ -28,7 +28,7 @@ processamento de pagamentos.
 -   [Server Actions](#server-actions)
 -   [API e integrações](#api-routes)
 -   [Configuração do ambiente](#configuração-do-ambiente)
--   [Executando o projeto](#instalação)
+-   [Instalação](#instalação)
 -   [Scripts e comandos](#scripts-e-comandos)
 -   [Observações](#observações)
 
