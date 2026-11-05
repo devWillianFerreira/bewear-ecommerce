@@ -103,7 +103,7 @@ processamento de pagamentos.
 -   Formulários com validação e mensagens de erro.
 -   Gerenciamento de estado assíncrono com TanStack Query.
 
-## Tecnologias utilizadas
+## 🚀 Tecnologias utilizadas
 
 
 ### Frontend
@@ -170,8 +170,8 @@ processamento de pagamentos.
 
 - React Number Format                          5.4.4 Formatação de valores
                                                      numéricos
-  ------------------------------------------------------------------------
 
+  
 ### Ferramentas de desenvolvimento
 
 -   ESLint 9 e eslint-config-next.
@@ -183,7 +183,7 @@ processamento de pagamentos.
 > `package.json`. As versões efetivamente instaladas são determinadas
 > pelo `package-lock.json`.
 
-## Arquitetura e organização
+## 📦 Arquitetura e organização
 
 A aplicação utiliza o **App Router do Next.js**. As páginas são
 organizadas por funcionalidades dentro de `src/app`, enquanto operações
@@ -200,7 +200,7 @@ pagamento é criada no Stripe Checkout. 3. O Stripe envia um evento ao
 webhook da aplicação, que atualiza o pedido para `paid` após a
 confirmação do pagamento.
 
-### Estrutura de pastas
+### Estrutura do Projeto 
 
 ``` text
 bewear-ecommerce/
@@ -248,7 +248,7 @@ bewear-ecommerce/
 └── README.md
 ```
 
-## Rotas da aplicação
+## 🌐 Rotas da aplicação
 
   ---------------------------------------------------------------------------------
   Método            Rota                        Descrição         Acesso
