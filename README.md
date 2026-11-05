@@ -27,7 +27,6 @@ processamento de pagamentos.
 -   [Rotas da aplicação](#rotas-da-aplicação)
 -   [Server Actions](#server-actions)
 -   [API e integrações](#api-e-integrações)
--   [Modelagem do banco de dados](#modelagem-do-banco-de-dados)
 -   [Configuração do ambiente](#configuração-do-ambiente)
 -   [Executando o projeto](#executando-o-projeto)
 -   [Scripts e comandos](#scripts-e-comandos)
