@@ -106,39 +106,30 @@ processamento de pagamentos.
 ## Tecnologias utilizadas
 
 ### Frontend
-
-  ------------------------------------------------------------------------
-  Tecnologia                        Versão declarada Finalidade
-  --------------------- ---------------------------- ---------------------
-  Next.js                                    15.4.10 Framework React, App
+- Next.js                                    15.4.10 Framework React, App
                                                      Router e recursos
                                                      server-side
 
-  React                                       19.1.0 Construção da
+- React                                       19.1.0 Construção da
                                                      interface
 
-  TypeScript                                     5.x Tipagem estática
+- TypeScript                                     5.x Tipagem estática
 
-  Tailwind CSS                                   4.x Estilização
+- Tailwind CSS                                   4.x Estilização
 
-  Radix UI                 1.x / pacotes individuais Primitivos acessíveis
+- Radix UI                 1.x / pacotes individuais Primitivos acessíveis
                                                      para componentes
 
-  shadcn/ui                   Componentes no projeto Base de componentes
+- shadcn/ui                   Componentes no projeto Base de componentes
                                                      customizáveis
 
-  Lucide React                               0.536.0 Ícones
+- Lucide React                               0.536.0 Ícones
 
-  Embla Carousel React                         8.6.0 Carrosséis
+- Embla Carousel React                         8.6.0 Carrosséis
 
-  Next Themes                                  0.4.6 Gerenciamento de tema
-  ------------------------------------------------------------------------
+
 
 ### Backend, banco de dados e autenticação
-
-  ------------------------------------------------------------------------
-  Tecnologia                        Versão declarada Finalidade
-  --------------------- ---------------------------- ---------------------
   PostgreSQL                                     --- Banco de dados
                                                      relacional
 
