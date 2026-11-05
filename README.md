@@ -105,7 +105,9 @@ processamento de pagamentos.
 
 ## Tecnologias utilizadas
 
+
 ### Frontend
+
 - Next.js                                    15.4.10 Framework React, App
                                                      Router e recursos
                                                      server-side
@@ -130,45 +132,43 @@ processamento de pagamentos.
 
 
 ### Backend, banco de dados e autenticação
-  PostgreSQL                                     --- Banco de dados
+
+- PostgreSQL                                     --- Banco de dados
                                                      relacional
 
-  Drizzle ORM                                 0.44.2 Consultas e operações
+- Drizzle ORM                                 0.44.2 Consultas e operações
                                                      tipadas no banco
 
-  Drizzle Kit                                 0.31.4 Geração e aplicação
+- Drizzle Kit                                 0.31.4 Geração e aplicação
                                                      de alterações no
                                                      schema
 
-  Better Auth                                 1.2.12 Autenticação e
+- Better Auth                                 1.2.12 Autenticação e
                                                      sessões
 
-  Stripe                                      18.4.0 Criação de sessões de
+- Stripe                                      18.4.0 Criação de sessões de
                                                      checkout e integração
                                                      de pagamentos
-  ------------------------------------------------------------------------
+ 
 
 ### Formulários, validação e estado
 
-  ------------------------------------------------------------------------
-  Tecnologia                        Versão declarada Finalidade
-  --------------------- ---------------------------- ---------------------
-  React Hook Form                             7.62.0 Gerenciamento de
+- React Hook Form                             7.62.0 Gerenciamento de
                                                      formulários
 
-  Zod                                         4.0.15 Validação de dados e
+- Zod                                         4.0.15 Validação de dados e
                                                      schemas
 
-  Hookform Resolvers                           5.2.1 Integração entre
+- Hookform Resolvers                           5.2.1 Integração entre
                                                      React Hook Form e Zod
 
-  TanStack React Query                        5.83.0 Cache e gerenciamento
+- TanStack React Query                        5.83.0 Cache e gerenciamento
                                                      de consultas
                                                      assíncronas
 
-  Sonner                                       2.0.7 Notificações toast
+- Sonner                                       2.0.7 Notificações toast
 
-  React Number Format                          5.4.4 Formatação de valores
+- React Number Format                          5.4.4 Formatação de valores
                                                      numéricos
   ------------------------------------------------------------------------
 
