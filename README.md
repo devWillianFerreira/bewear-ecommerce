@@ -1,8 +1,6 @@
-# BEWEAR --- E-commerce de Moda
+# BEWEAR --- E-commerce de Roupas
 
-Uma aplicação full stack de comércio eletrônico desenvolvida para
-simular uma experiência de compra online completa, desde a navegação
-pelo catálogo até o pagamento e o acompanhamento de pedidos.
+Sistema de comércio eletrônico full stack que oferece uma experiência de compra imersiva de ponta a ponta: da vitrine ao pagamento, com acompanhamento detalhado de pedidos.
 
 O projeto foi construído com **Next.js 15, React 19 e TypeScript**,
 utilizando PostgreSQL para persistência de dados, Drizzle ORM para
