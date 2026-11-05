@@ -23,7 +23,7 @@ processamento de pagamentos.
 <img src="docs/images/bewear-checkout.png" alt="Fluxo de compra e checkout da BEWEAR" width="850" />
 
 </p>
-```
+
 
 ------------------------------------------------------------------------
 
