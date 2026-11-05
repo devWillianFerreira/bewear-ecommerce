@@ -248,42 +248,48 @@ bewear-ecommerce/
 └── README.md
 ```
 
+
 ## 🌐 Rotas da aplicação
 
-  GET               `/`                         Página inicial,   Público
+### Páginas Públicas
+
+- GET               `/`                         Página inicial,   Público
                                                 vitrines e        
                                                 catálogo          
 
-  GET               `/authentication`           Login e cadastro  Público
+- GET               `/authentication`           Login e cadastro  Público
 
-  GET               `/category/[slug]`          Produtos de uma   Público
+- GET               `/category/[slug]`          Produtos de uma   Público
                                                 categoria         
 
-  GET               `/product-variant/[slug]`   Detalhes de uma   Público
+- GET               `/product-variant/[slug]`   Detalhes de uma   Público
                                                 variante de       
                                                 produto           
 
-  GET               `/cart/review`              Revisão da sacola Autenticado
+- GET               `/cart/review`              Revisão da sacola Autenticado
 
-  GET               `/cart/identification`      Cadastro e        Autenticado
+- GET               `/cart/identification`      Cadastro e        Autenticado
                                                 seleção do        
                                                 endereço          
 
-  GET               `/cart/confirmation`        Confirmação dos   Autenticado
+- GET               `/cart/confirmation`        Confirmação dos   Autenticado
                                                 dados e início do 
                                                 pagamento         
 
-  GET               `/my-orders`                Histórico de      Autenticado
+- GET               `/my-orders`                Histórico de      Autenticado
                                                 pedidos           
 
-  GET               `/checkout/success/[id]`    Retorno de        Autenticado
+- GET               `/checkout/success/[id]`    Retorno de        Autenticado
                                                 pagamento         
                                                 confirmado        
 
-  GET               `/checkout/cancel/[id]`     Retorno de        Autenticado
+- GET               `/checkout/cancel/[id]`     Retorno de        Autenticado
                                                 checkout          
-                                                cancelado         
-  ---------------------------------------------------------------------------------
+                                                cancelado
+  ### API Routes
+- GET/POST `/api/auth/[...all]` - Autenticação com Better Auth.
+- POST `/api/stripe/webhook` - Confirmação de pagamentos via Stripe.
+
 
 ## Server Actions
 
@@ -293,91 +299,44 @@ com Zod, e as operações relacionadas ao usuário verificam sua sessão.
 
 ### Carrinho
 
-  -----------------------------------------------------------------------
-  Ação                                Responsabilidade
-  ----------------------------------- -----------------------------------
-  `addProductToCart`                  Adiciona uma variante ao carrinho
+- `addProductToCart`                  Adiciona uma variante ao carrinho
                                       ou incrementa sua quantidade
 
-  `decreaseCartProductQuantity`       Diminui a quantidade de um item;
+- `decreaseCartProductQuantity`       Diminui a quantidade de um item;
                                       remove o item quando a quantidade
                                       atual é 1
 
-  `removeProductFromCart`             Remove um item do carrinho
+- `removeProductFromCart`             Remove um item do carrinho
 
-  `getCart`                           Busca o carrinho do usuário e
+- `getCart`                           Busca o carrinho do usuário e
                                       calcula o total
-  -----------------------------------------------------------------------
+
 
 ### Endereços
 
-  -----------------------------------------------------------------------
-  Ação                                Responsabilidade
-  ----------------------------------- -----------------------------------
-  `createShippingAddress`             Cadastra um endereço de entrega
+- `createShippingAddress`             Cadastra um endereço de entrega
 
-  `getAddress`                        Lista os endereços do usuário
+- `getAddress`                        Lista os endereços do usuário
 
-  `updateCartShippingAddress`         Associa um endereço existente ao
+- `updateCartShippingAddress`         Associa um endereço existente ao
                                       carrinho
-  -----------------------------------------------------------------------
 
 ### Produtos
 
-  -----------------------------------------------------------------------
-  Ação                                Responsabilidade
-  ----------------------------------- -----------------------------------
-  `getSearchProducts`                 Pesquisa produtos pelo nome, com
+- `getSearchProducts`                 Pesquisa produtos pelo nome, com
                                       limite de resultados
-
-  -----------------------------------------------------------------------
 
 ### Pedidos e pagamentos
 
-  -----------------------------------------------------------------------
-  Ação                                Responsabilidade
-  ----------------------------------- -----------------------------------
-  `FinishOrder`                       Cria o pedido e seus itens a partir
+- `FinishOrder`                       Cria o pedido e seus itens a partir
                                       do carrinho selecionado
 
-  `createChechoutSession`             Cria uma sessão de pagamento no
+- `createChechoutSession`             Cria uma sessão de pagamento no
                                       Stripe Checkout
-  -----------------------------------------------------------------------
 
 > Os identificadores acima respeitam os nomes exportados no código.
 > Algumas ações são exportadas como `default`, enquanto outras utilizam
 > exportação nomeada.
-
-## API e integrações
-
-### Better Auth
-
-  -----------------------------------------------------------------------
-  Método                  Endpoint                Descrição
-  ----------------------- ----------------------- -----------------------
-  GET / POST              `/api/auth/[...all]`    Handlers de
-                                                  autenticação, sessão e
-                                                  login social
-
-  -----------------------------------------------------------------------
-
-O Better Auth utiliza o adaptador Drizzle para persistir usuários,
-sessões, contas e verificações no PostgreSQL.
-
-### Stripe
-
-  -----------------------------------------------------------------------
-  Método                  Endpoint                Descrição
-  ----------------------- ----------------------- -----------------------
-  POST                    `/api/stripe/webhook`   Recebe e valida eventos
-                                                  enviados pelo Stripe
-
-  -----------------------------------------------------------------------
-
-O webhook valida a assinatura recebida no cabeçalho `stripe-signature`.
-Quando recebe o evento `checkout.session.completed`, localiza o pedido
-pelo identificador armazenado nos metadados da sessão e atualiza seu
-status para `paid`.
 
 
 ## Configuração do ambiente
