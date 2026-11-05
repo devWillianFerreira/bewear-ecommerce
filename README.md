@@ -20,7 +20,7 @@ processamento de pagamentos.
 
 <p align="center">
 
-<img src="docs/images/product-bewear.png" alt="Página do Produto" width="850" />
+<img src="docs/images/product-bewear.png" alt="Página do Produto" width="100%" />
 
 </p>
 
