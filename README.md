@@ -14,13 +14,13 @@ processamento de pagamentos.
 
 <p align="center">
 
-<img src="docs/images/homePage-bewear" alt="Página inicial da BEWEAR" width="850" />
+<img src="docs/images/homePage-bewear.png" alt="Página inicial da BEWEAR" width="850" />
 
 </p>
 
 <p align="center">
 
-<img src="docs/images/bewear-checkout.png" alt="Fluxo de compra e checkout da BEWEAR" width="850" />
+<img src="docs/images/product-bewear.png" alt="Página do Produto" width="850" />
 
 </p>
 
