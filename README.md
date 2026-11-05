@@ -32,6 +32,7 @@ processamento de pagamentos.
 -   [Scripts e comandos](#scripts-e-comandos)
 -   [Observações](#observações)
 
+
 ## 🛍️ Funcionalidades
 
 ### Autenticação e usuários
