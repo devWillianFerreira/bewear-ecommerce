@@ -250,9 +250,6 @@ bewear-ecommerce/
 
 ## 🌐 Rotas da aplicação
 
-  ---------------------------------------------------------------------------------
-  Método            Rota                        Descrição         Acesso
-  ----------------- --------------------------- ----------------- -----------------
   GET               `/`                         Página inicial,   Público
                                                 vitrines e        
                                                 catálogo          
