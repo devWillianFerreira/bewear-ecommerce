@@ -264,7 +264,9 @@ bewear-ecommerce/
 
 - GET               `/product-variant/[slug]`   Detalhes de uma   Público
                                                 variante de       
-                                                produto           
+                                                produto
+
+### Carrinho e Checkout     
 
 - GET               `/cart/review`              Revisão da sacola Autenticado
 
@@ -286,12 +288,14 @@ bewear-ecommerce/
 - GET               `/checkout/cancel/[id]`     Retorno de        Autenticado
                                                 checkout          
                                                 cancelado
-  ### API Routes
+
+### API Routes
+
 - GET/POST `/api/auth/[...all]` - Autenticação com Better Auth.
 - POST `/api/stripe/webhook` - Confirmação de pagamentos via Stripe.
 
 
-## Server Actions
+## ⚡Server Actions
 
 As Server Actions concentram operações de negócio executadas no
 servidor. Os dados recebidos por ações que possuem schema são validados
@@ -339,7 +343,7 @@ com Zod, e as operações relacionadas ao usuário verificam sua sessão.
 > exportação nomeada.
 
 
-## Configuração do ambiente
+## 🛠️ Configuração do ambiente
 
 ### Pré-requisitos
 
@@ -444,7 +448,7 @@ npm run dev
 
 Acesse <http://localhost:3000>.
 
-## Scripts e comandos
+## 🔧 Scripts e comandos
 
 Os scripts atualmente definidos no `package.json` são:
 
@@ -459,7 +463,7 @@ Comandos do Drizzle Kit e do seed são executados diretamente via `npx`,
 conforme descrito na seção de banco de dados. Eles não estão cadastrados
 como scripts no `package.json`.
 
-## Observações
+## ⚠️ Observações
 
 -   O processamento de pagamentos depende de credenciais válidas do
     Stripe e de um webhook configurado para apontar para
