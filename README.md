@@ -14,7 +14,7 @@ processamento de pagamentos.
 
 <p align="center">
 
-<img src="docs/images/homePage-bewear.png" alt="Página inicial da BEWEAR" width="850" />
+<img src="docs/images/homePage-bewear.png" alt="Página inicial da BEWEAR" width="100%" />
 
 </p>
 
