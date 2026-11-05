@@ -11,22 +11,17 @@ processamento de pagamentos.
 
 ## Prévia do projeto
 
-> Adicione as duas capturas de tela abaixo à pasta `docs/images/` com os
-> nomes indicados. As imagens não estão incluídas no repositório neste
-> momento.
 
-```{=html}
 <p align="center">
-```
-`<img src="docs/images/homePage-bewear" alt="Página inicial da BEWEAR" width="850" />`{=html}
-```{=html}
+
+<img src="docs/images/homePage-bewear" alt="Página inicial da BEWEAR" width="850" />
+
 </p>
-```
-```{=html}
+
 <p align="center">
-```
-`<img src="docs/images/bewear-checkout.png" alt="Fluxo de compra e checkout da BEWEAR" width="850" />`{=html}
-```{=html}
+
+<img src="docs/images/bewear-checkout.png" alt="Fluxo de compra e checkout da BEWEAR" width="850" />
+
 </p>
 ```
 
