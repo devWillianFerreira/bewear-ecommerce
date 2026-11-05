@@ -435,7 +435,7 @@ npm run dev
 
 Acesse <http://localhost:3000>.
 
-## 🔧 Scripts e comandos
+## Scripts e comandos
 
 Os scripts atualmente definidos no `package.json` são:
 
