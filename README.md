@@ -33,7 +33,7 @@ processamento de pagamentos.
 -   [Observações](#observações)
 
 
-## 🛍️ Funcionalidades
+## Funcionalidades
 
 ### Autenticação e usuários
 
@@ -90,7 +90,7 @@ processamento de pagamentos.
 -   Formulários com validação e mensagens de erro.
 -   Gerenciamento de estado assíncrono com TanStack Query.
 
-## 🚀 Tecnologias utilizadas
+## Tecnologias utilizadas
 
 
 ### Frontend
@@ -170,7 +170,7 @@ processamento de pagamentos.
 > `package.json`. As versões efetivamente instaladas são determinadas
 > pelo `package-lock.json`.
 
-## 📦 Arquitetura e organização
+## Arquitetura e organização
 
 A aplicação utiliza o **App Router do Next.js**. As páginas são
 organizadas por funcionalidades dentro de `src/app`, enquanto operações
@@ -236,7 +236,7 @@ bewear-ecommerce/
 ```
 
 
-## 🌐 Rotas da aplicação
+## Rotas da aplicação
 
 ### Páginas Públicas
 
@@ -282,7 +282,7 @@ bewear-ecommerce/
 - POST `/api/stripe/webhook` - Confirmação de pagamentos via Stripe.
 
 
-## ⚡Server Actions
+## Server Actions
 
 As Server Actions concentram operações de negócio executadas no
 servidor. Os dados recebidos por ações que possuem schema são validados
@@ -330,7 +330,7 @@ com Zod, e as operações relacionadas ao usuário verificam sua sessão.
 > exportação nomeada.
 
 
-## 🛠️ Configuração do ambiente
+## Configuração do ambiente
 
 ### Pré-requisitos
 
@@ -450,7 +450,7 @@ Comandos do Drizzle Kit e do seed são executados diretamente via `npx`,
 conforme descrito na seção de banco de dados. Eles não estão cadastrados
 como scripts no `package.json`.
 
-## ⚠️ Observações
+## Observações
 
 -   O processamento de pagamentos depende de credenciais válidas do
     Stripe e de um webhook configurado para apontar para
@@ -469,6 +469,3 @@ como scripts no `package.json`.
 ------------------------------------------------------------------------
 
 Desenvolvido por **Willian Ferreira**.
-
-[Repositório no
-GitHub](https://github.com/devWillianFerreira/bewear-ecommerce)
