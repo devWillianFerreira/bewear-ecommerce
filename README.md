@@ -18,7 +18,7 @@ processamento de pagamentos.
 ```{=html}
 <p align="center">
 ```
-`<img src="docs/images/bewear-home.png" alt="Página inicial da BEWEAR" width="850" />`{=html}
+`<img src="docs/images/homePage-bewear" alt="Página inicial da BEWEAR" width="850" />`{=html}
 ```{=html}
 </p>
 ```
