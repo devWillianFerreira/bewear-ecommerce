@@ -7,25 +7,17 @@ utilizando PostgreSQL para persistência de dados, Drizzle ORM para
 acesso ao banco, Better Auth para autenticação e Stripe para
 processamento de pagamentos.
 
-------------------------------------------------------------------------
 
 ## Prévia do projeto
 
-
 <p align="center">
-
 <img src="docs/images/homePage-bewear.png" alt="Página inicial da BEWEAR" width="100%" />
-
 </p>
 
 <p align="center">
-
-<img src="docs/images/product-bewear.png" alt="Página do Produto" width="100%" />
-
+<img src="docs/images/product-bewear.png" alt="Página do Produto" wid
 </p>
 
-
-------------------------------------------------------------------------
 
 ## Índice
 
