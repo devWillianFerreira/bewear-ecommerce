@@ -26,9 +26,9 @@ processamento de pagamentos.
 -   [Arquitetura e organização](#arquitetura-e-organização)
 -   [Rotas da aplicação](#rotas-da-aplicação)
 -   [Server Actions](#server-actions)
--   [API e integrações](#api-e-integrações)
+-   [API e integrações](#api-routes)
 -   [Configuração do ambiente](#configuração-do-ambiente)
--   [Executando o projeto](#executando-o-projeto)
+-   [Executando o projeto](#instalação)
 -   [Scripts e comandos](#scripts-e-comandos)
 -   [Observações](#observações)
 
